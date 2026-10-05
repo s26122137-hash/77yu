@@ -1,0 +1,338 @@
+}, 2500);
+    }
+
+    // 頁面載入完成後初始化
+    window.onload = function() {
+      initParticles();
+    };
+  </script><!DOCTYPE html>
+<html lang=
+</html>"zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio - 作品集闖關地圖</title>
+  
+  <!-- 載入 Google Fonts: Fredoka & Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #fff0f3 0%, #fce7f3 40%, #f3e8ff 100%);
+      --pink-soft: #fbcfe8;
+      --pink-main: #f472b6;
+      --pink-deep: #ec4899;
+      --pink-accent: #db2777;
+      --text-dark: #831843;
+      --text-muted: #9d174d;
+      --card-bg: rgba(255, 255, 255, 0.82);
+      --card-border: rgba(251, 207, 232, 0.8);
+      --locked-bg: rgba(243, 244, 246, 0.75);
+      --locked-border: #e5e7eb;
+    }
+
+    body {
+      font-family: 'Fredoka', 'Noto Sans TC', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-dark);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .bg-particle {
+      position: fixed;
+      pointer-events: none;
+      animation: floatUp 9s infinite linear;
+      opacity: 0;
+      z-index: 0;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(105vh) rotate(0deg) scale(0.8);
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.6;
+      }
+      80% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(360deg) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .profile-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 3px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 16px 36px -10px rgba(244, 114, 182, 0.22),
+                  0 0 20px rgba(236, 72, 153, 0.08) inset;
+    }
+
+    .avatar-halo {
+      position: relative;
+    }
+
+    .avatar-halo::before {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 9999px;
+      background: linear-gradient(45deg, #f472b6, #e9d5ff, #ec4899, #fbcfe8);
+      background-size: 200% 200%;
+      z-index: -1;
+      animation: gradientGlow 5s ease infinite;
+    }
+
+    @keyframes gradientGlow {
+      0% { background-position: 0% 50%; filter: blur(6px); }
+      50% { background-position: 100% 50%; filter: blur(9px); }
+      100% { background-position: 0% 50%; filter: blur(6px); }
+    }
+
+    .level-unlocked {
+      background: linear-gradient(135deg, #ffffff 0%, #fff1f2 100%);
+      border: 2px solid var(--card-border);
+      box-shadow: 0 8px 20px rgba(244, 114, 182, 0.12);
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .level-unlocked::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        60deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.8) 50%,
+        transparent 70%
+      );
+      transform: rotate(30deg) translateX(-100%);
+      transition: transform 0.65s ease-in-out;
+    }
+
+    .level-unlocked:hover::before {
+      transform: rotate(30deg) translateX(100%);
+    }
+
+    .level-unlocked:hover {
+      transform: translateY(-8px) scale(1.03);
+      border-color: var(--pink-main);
+      box-shadow: 0 16px 32px rgba(244, 114, 182, 0.28),
+                  0 0 15px rgba(236, 72, 153, 0.15);
+    }
+
+    .level-locked {
+      background: var(--locked-bg);
+      border: 2px dashed var(--locked-border);
+      backdrop-filter: blur(6px);
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .level-locked:hover {
+      background: rgba(243, 244, 246, 0.92);
+      border-color: var(--pink-soft);
+      transform: translateY(-3px);
+    }
+
+    .level-locked:hover .lock-icon {
+      transform: scale(1.25) rotate(-12deg);
+      transition: transform 0.25s ease;
+    }
+
+    @keyframes shakeAnimation {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-7px) rotate(-3deg); }
+      40%, 80% { transform: translateX(7px) rotate(3deg); }
+    }
+
+    .shake {
+      animation: shakeAnimation 0.4s ease-in-out;
+      border-color: #f43f5e !important;
+    }
+
+    #toast-msg {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      opacity: 0;
+      transition: all 0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      z-index: 50;
+    }
+
+    #toast-msg.active {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen items-center justify-between p-4 md:p-8">
+
+  <!-- 背景飄浮顆粒區塊 -->
+  <div id="particles-container"></div>
+
+  <main class="w-full max-w-5xl mx-auto z-10 flex flex-col items-center gap-8">
+
+    <!-- 1. 中央個人資訊區 (Profile Card) -->
+    <header class="profile-card w-full max-w-lg rounded-3xl p-6 md:p-8 text-center flex flex-col items-center gap-4 mt-2">
+      <!-- 大頭貼 (圓形淡粉色光暈 border) -->
+      <div class="avatar-halo w-28 h-28 md:w-32 md:h-32 rounded-full">
+        <img 
+          src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" 
+          alt="Avatar" 
+          class="w-full h-full object-cover rounded-full border-4 border-white shadow-md"
+          onerror="this.src='https://placehold.co/150x150/fbcfe8/831843?text=My+Portfolio'"
+        >
+      </div>
+
+      <!-- 姓名與徽章 -->
+      <div class="space-y-1.5">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-pink-100 text-pink-700 text-xs font-semibold rounded-full">
+          <span>✨</span>
+          <span>Web Developer Portfolio</span>
+        </div>
+        <h1 class="text-2xl md:text-3xl font-bold tracking-wide text-pink-950">我的作品集 / My Portfolio</h1>
+        <p class="text-xs md:text-sm text-pink-800/80 font-medium">探索我的網頁程式設計闖關之旅 🌸</p>
+      </div>
+
+      <!-- 解鎖進度條 -->
+      <div class="w-full bg-pink-100/80 rounded-full h-3.5 p-0.5 border border-pink-200/80 mt-1">
+        <div class="bg-gradient-to-r from-pink-400 to-pink-500 h-full rounded-full w-[12.5%] transition-all duration-500 shadow-sm"></div>
+      </div>
+      <div class="text-xs text-pink-700 font-semibold flex justify-between w-full px-1">
+        <span>關卡進度：2 / 16 解鎖</span>
+        <span>12.5%</span>
+      </div>
+    </header>
+
+    <!-- 2. 16 個闖關按鈕網格 (電腦 4 欄、平板 3 欄、手機 2 欄) -->
+    <section class="w-full">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 md:gap-5 w-full">
+
+        <!-- 按鈕 1 (已解鎖) -->
+        <a href="w1/index.html" class="level-unlocked p-4 md:p-5 rounded-2xl flex flex-col justify-between h-32 md:h-36 text-left group">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-bold uppercase tracking-wider text-pink-600 bg-pink-100 px-2.5 py-0.5 rounded-md">Week 01</span>
+            <span class="text-xl group-hover:scale-125 transition-transform">📇</span>
+          </div>
+          <div>
+            <h3 class="font-bold text-sm md:text-base text-pink-950 line-clamp-2">Week 1 - 數位名片</h3>
+            <p class="text-xs text-pink-500 mt-1 flex items-center gap-1 font-medium">
+              <span>進入關卡</span>
+              <span class="group-hover:translate-x-1 transition-transform">→</span>
+            </p>
+          </div>
+        </a>
+
+        <!-- 按鈕 2 (已解鎖) -->
+        <a href="w2/index.html" class="level-unlocked p-4 md:p-5 rounded-2xl flex flex-col justify-between h-32 md:h-36 text-left group">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-bold uppercase tracking-wider text-pink-600 bg-pink-100 px-2.5 py-0.5 rounded-md">Week 02</span>
+            <span class="text-xl group-hover:scale-125 transition-transform">🍱</span>
+          </div>
+          <div>
+            <h3 class="font-bold text-sm md:text-base text-pink-950 line-clamp-2">Week 2 - 今天吃甚麼?</h3>
+            <p class="text-xs text-pink-500 mt-1 flex items-center gap-1 font-medium">
+              <span>進入關卡</span>
+              <span class="group-hover:translate-x-1 transition-transform">→</span>
+            </p>
+          </div>
+        </a>
+
+        <!-- 按鈕 3 ~ 16 (未解鎖) -->
+        <script>
+          const lockedTopics = [
+            "CSS 魔法與特效", "響應式排版", "JavaScript 基礎", "互動小遊戲",
+            "API 數據串接", "天氣 App", "待辦事項清單", "音樂播放器",
+            "電商購物車", "Canvas 畫板", "3D 視覺體驗", "個人部落格",
+            "團隊專題展示", "期末總結作品"
+          ];
+
+          for (let i = 3; i <= 16; i++) {
+            const topic = lockedTopics[i - 3] || `未解鎖任務 ${i}`;
+            document.write(`
+              <div onclick="handleLockedClick(this, ${i})" 
+                   class="level-locked p-4 md:p-5 rounded-2xl flex flex-col justify-between h-32 md:h-36 text-left select-none">
+                <div class="flex justify-between items-start">
+                  <span class="text-xs font-bold uppercase tracking-wider text-gray-400 bg-gray-200/70 px-2.5 py-0.5 rounded-md">Week ${i < 10 ? '0' + i : i}</span>
+                  <span class="lock-icon text-lg opacity-70">🔒</span>
+                </div>
+                <div>
+                  <h3 class="font-medium text-sm md:text-base text-gray-400 line-clamp-1">${topic}</h3>
+                  <p class="text-xs text-gray-400 mt-1">
+                    <span>關卡鎖定中</span>
+                  </p>
+                </div>
+              </div>
+            `);
+          }
+        </script>
+
+      </div>
+    </section>
+
+    <!-- 頁尾宣告 -->
+    <footer class="text-center text-xs text-pink-800/60 pb-2 mt-2">
+      <p>© 2026 My Portfolio • Designed with 💕 for Web Programming Course</p>
+    </footer>
+  </main>
+
+  <!-- Toast 未解鎖提示 -->
+  <div id="toast-msg" class="bg-pink-950 text-white text-xs md:text-sm px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-2.5 border border-pink-700">
+    <span class="text-lg">🔒</span>
+    <span id="toast-text">Week 關卡尚未解鎖！完成先前任務後即可探索喔～</span>
+  </div>
+
+  <script>
+    // 1. 生成飄浮粉紅愛心與閃爍星芒
+    function initParticles() {
+      const container = document.getElementById('particles-container');
+      const symbols = ['🌸', '💖', '✨', '⭐', '🍬', '💕'];
+      const particleCount = 14;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'bg-particle';
+        particle.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+        particle.style.left = `${Math.random() * 100}vw`;
+        particle.style.animationDuration = `${7 + Math.random() * 6}s`;
+        particle.style.animationDelay = `${Math.random() * 6}s`;
+        particle.style.fontSize = `${14 + Math.random() * 14}px`;
+        container.appendChild(particle);
+      }
+    }
+
+    // 2. 處理點擊未解鎖關卡時的動畫與提示訊息
+    let toastTimer;
+    function handleLockedClick(element, weekNumber) {
+      // 觸發 Shake 抖動
+      element.classList.remove('shake');
+      void element.offsetWidth; // 強制重繪以重置動畫
+      element.classList.add('shake');
+
+      // 顯示 Toast 彈窗
+      const toast = document.getElementById('toast-msg');
+      const toastText = document.getElementById('toast-text');
+      toastText.innerText = `Week ${weekNumber} 關卡尚未解鎖！先完成前面的關卡吧 ✨`;
+      toast.classList.add('active');
+
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('active');
+</body>
