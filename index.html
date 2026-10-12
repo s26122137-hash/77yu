@@ -1,13 +1,5 @@
-}, 2500);
-    }
-
-    // 頁面載入完成後初始化
-    window.onload = function() {
-      initParticles();
-    };
-  </script><!DOCTYPE html>
-<html lang=
-</html>"zh-TW">
+<!DOCTYPE html>
+<html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -211,17 +203,17 @@
         <p class="text-xs md:text-sm text-pink-800/80 font-medium">探索我的網頁程式設計闖關之旅 🌸</p>
       </div>
 
-      <!-- 解鎖進度條 -->
+      <!-- 解鎖進度條 (已更新為 3 / 16 解鎖) -->
       <div class="w-full bg-pink-100/80 rounded-full h-3.5 p-0.5 border border-pink-200/80 mt-1">
-        <div class="bg-gradient-to-r from-pink-400 to-pink-500 h-full rounded-full w-[12.5%] transition-all duration-500 shadow-sm"></div>
+        <div class="bg-gradient-to-r from-pink-400 to-pink-500 h-full rounded-full w-[18.75%] transition-all duration-500 shadow-sm"></div>
       </div>
       <div class="text-xs text-pink-700 font-semibold flex justify-between w-full px-1">
-        <span>關卡進度：2 / 16 解鎖</span>
-        <span>12.5%</span>
+        <span>關卡進度：3 / 16 解鎖</span>
+        <span>18.75%</span>
       </div>
     </header>
 
-    <!-- 2. 16 個闖關按鈕網格 (電腦 4 欄、平板 3 欄、手機 2 欄) -->
+    <!-- 2. 16 個闖關按鈕網格 -->
     <section class="w-full">
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 md:gap-5 w-full">
 
@@ -255,17 +247,32 @@
           </div>
         </a>
 
-        <!-- 按鈕 3 ~ 16 (未解鎖) -->
+        <!-- 按鈕 3 (已解鎖 - 迷因產生器) -->
+        <a href="w3/index.html" class="level-unlocked p-4 md:p-5 rounded-2xl flex flex-col justify-between h-32 md:h-36 text-left group">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-bold uppercase tracking-wider text-pink-600 bg-pink-100 px-2.5 py-0.5 rounded-md">Week 03</span>
+            <span class="text-xl group-hover:scale-125 transition-transform">🖼️</span>
+          </div>
+          <div>
+            <h3 class="font-bold text-sm md:text-base text-pink-950 line-clamp-2">Week 3 - 迷因產生器</h3>
+            <p class="text-xs text-pink-500 mt-1 flex items-center gap-1 font-medium">
+              <span>進入關卡</span>
+              <span class="group-hover:translate-x-1 transition-transform">→</span>
+            </p>
+          </div>
+        </a>
+
+        <!-- 按鈕 4 ~ 16 (未解鎖) -->
         <script>
           const lockedTopics = [
-            "CSS 魔法與特效", "響應式排版", "JavaScript 基礎", "互動小遊戲",
-            "API 數據串接", "天氣 App", "待辦事項清單", "音樂播放器",
-            "電商購物車", "Canvas 畫板", "3D 視覺體驗", "個人部落格",
-            "團隊專題展示", "期末總結作品"
+            "JavaScript 基礎", "互動小遊戲", "API 數據串接",
+            "天氣 App", "待辦事項清單", "音樂播放器", "電商購物車",
+            "Canvas 畫板", "3D 視覺體驗", "個人部落格", "團隊專題展示",
+            "期末總結作品"
           ];
 
-          for (let i = 3; i <= 16; i++) {
-            const topic = lockedTopics[i - 3] || `未解鎖任務 ${i}`;
+          for (let i = 4; i <= 16; i++) {
+            const topic = lockedTopics[i - 4] || `未解鎖任務 ${i}`;
             document.write(`
               <div onclick="handleLockedClick(this, ${i})" 
                    class="level-locked p-4 md:p-5 rounded-2xl flex flex-col justify-between h-32 md:h-36 text-left select-none">
@@ -335,4 +342,13 @@
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => {
         toast.classList.remove('active');
+      }, 2500);
+    }
+
+    // 頁面載入完成後初始化
+    window.onload = function() {
+      initParticles();
+    };
+  </script>
 </body>
+</html>
