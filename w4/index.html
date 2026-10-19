@@ -5,29 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>粉白貓咪動態留言板 🐾</title>
   
-  <!-- 引入 Google Fonts 可愛圓潤字體 (Nunito & Zen Maru Gothic) -->
+  <!-- 引入 Google Fonts 可愛手寫風字體 (Yomogi, Zen Maru Gothic) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Yomogi&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
 
   <style>
     /* ==========================================================================
-       【主題顏色設定區】 - 方便你後續調整顏色風格
+       【1. 主題顏色與輪播參數設定區】
+       👉 在這裡修改顏色碼與輪播秒數，即可改變全站視覺與速度
        ========================================================================== */
     :root {
-      /* 主視覺顏色 */
-      --bg-color: #FFF5F7;          /* 網頁背景色：極淺粉白 */
+      /* 🎨 主視覺粉白色系控制 */
+      --bg-color: #FFF5F7;          /* 全站背景色：極淺粉白 */
       --card-bg: #FFFFFF;          /* 卡片背景色：純白 */
-      --primary-color: #FF8ACE;     /* 主色調：貓咪掌心粉 */
-      --secondary-color: #FFB7C5;   /* 輔助色：櫻花淺粉 */
-      --accent-color: #FF529A;      /* 強調色：鮮豔亮粉（用於高亮與重點） */
-      --text-dark: #5A4A42;         /* 主要文字色：深奶茶棕（比純黑更溫柔） */
-      --text-muted: #A3938B;        /* 次要文字色：淺灰棕 */
-      --shadow-color: rgba(255, 138, 206, 0.25); /* 柔和粉色陰影 */
+      --primary-color: #FFB7C5;     /* 主色調：櫻花粉 */
+      --secondary-color: #FFE4EC;   /* 輔助色：柔粉 */
+      --accent-color: #FF529A;      /* 強調色：鮮豔亮粉（用於高亮與重點標題） */
+      --text-dark: #5C4342;         /* 主要文字色：暖深棕 */
+      --text-muted: #A08382;        /* 次要文字色：灰棕（時間戳記） */
+      --shadow-glow: rgba(255, 82, 154, 0.4); /* 卡片高亮時的粉紅發光陰影 */
 
-      /* 輪播高亮效果控制 */
-      --highlight-scale: 1.05;      /* 被選中卡片放大的比例 (1.05 = 放大5%) */
-      --blur-amount: 3px;           /* 未選中卡片的模糊程度 */
+      /* ✍️ 手寫風格字體 */
+      --font-handwriting: 'Yomogi', 'Zen Maru Gothic', cursive, sans-serif;
+
+      /* ⏳ 輪播卡片視覺效果 */
+      --highlight-scale: 1.06;      /* 高亮卡片放大比例 (1.06 代表放大 6%) */
+      --dimmed-opacity: 0.45;       /* 未選中卡片的透明度 (0.45 代表 45% 透明度) */
+      --dimmed-blur: 3px;           /* 未選中卡片的模糊度 */
     }
 
     /* 全局樣式重置 */
@@ -38,49 +43,48 @@
     }
 
     body {
-      font-family: 'Zen Maru Gothic', 'Nunito', sans-serif;
+      font-family: var(--font-handwriting);
       background-color: var(--bg-color);
       color: var(--text-dark);
-      padding: 20px;
+      padding: 24px 16px;
       min-height: 100vh;
-      /* 背景加上可愛的可愛貓咪爪印與點點圖案 */
+      /* 背景肉墊與圖點圖案 */
       background-image: 
-        radial-gradient(var(--secondary-color) 15%, transparent 16%),
-        radial-gradient(var(--secondary-color) 15%, transparent 16%);
-      background-size: 60px 60px;
-      background-position: 0 0, 30px 30px;
-      background-opacity: 0.3;
+        radial-gradient(var(--primary-color) 15%, transparent 16%),
+        radial-gradient(var(--primary-color) 15%, transparent 16%);
+      background-size: 50px 50px;
+      background-position: 0 0, 25px 25px;
     }
 
     /* 頁頭標題區 */
     header {
       text-align: center;
-      margin-bottom: 30px;
-      position: relative;
+      margin-bottom: 35px;
     }
 
     header h1 {
-      font-size: 2.2rem;
+      font-size: 2.3rem;
       color: var(--accent-color);
       display: inline-block;
       position: relative;
       background: #FFFFFF;
-      padding: 10px 30px;
+      padding: 10px 32px;
       border-radius: 30px;
-      box-shadow: 0 8px 20px var(--shadow-color);
-      border: 3px solid var(--secondary-color);
+      box-shadow: 0 8px 20px rgba(255, 183, 197, 0.4);
+      border: 3px solid var(--primary-color);
+      letter-spacing: 2px;
     }
 
-    /* 標題貓耳可愛裝飾 */
+    /* 標題貓耳裝飾 */
     header h1::before, header h1::after {
       content: '';
       position: absolute;
-      top: -15px;
+      top: -16px;
       width: 0;
       height: 0;
-      border-left: 15px solid transparent;
-      border-right: 15px solid transparent;
-      border-bottom: 20px solid var(--secondary-color);
+      border-left: 14px solid transparent;
+      border-right: 14px solid transparent;
+      border-bottom: 20px solid var(--primary-color);
     }
     header h1::before { left: 20px; transform: rotate(-20deg); }
     header h1::after { right: 20px; transform: rotate(20deg); }
@@ -88,30 +92,30 @@
     header p {
       margin-top: 12px;
       color: var(--text-muted);
-      font-size: 1rem;
+      font-size: 1.1rem;
     }
 
     /* ==========================================================================
-       【酷炫貓咪載入中動畫 (Loading Animation)】
+       【2. 酷炫貓咪載入中動畫 (Loading Animation)】
        ========================================================================== */
     #loading {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin: 80px 0;
+      margin: 90px 0;
     }
 
-    /* 旋轉貓爪 Loading Circle */
+    /* 旋轉貓爪 Circle */
     .cat-spinner {
       width: 70px;
       height: 70px;
-      border: 6px solid var(--secondary-color);
+      border: 6px solid var(--primary-color);
       border-top: 6px solid var(--accent-color);
       border-radius: 50%;
       animation: spin 1s linear infinite;
       position: relative;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .cat-spinner::after {
@@ -120,7 +124,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 24px;
+      font-size: 26px;
     }
 
     @keyframes spin {
@@ -129,207 +133,200 @@
     }
 
     #loading p {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       font-weight: bold;
       color: var(--accent-color);
-      letter-spacing: 2px;
-      animation: pulse 1.5s infinite ease-in-out;
+      letter-spacing: 3px;
+      animation: blink 1.4s infinite ease-in-out;
     }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 0.6; }
+    @keyframes blink {
+      0%, 100% { opacity: 0.4; }
       50% { opacity: 1; }
     }
 
     /* ==========================================================================
-       【瀑布流排版區 (Masonry Layout)】
+       【3. 瀑布流排版 (Masonry Layout)】
        ========================================================================== */
     .masonry-container {
-      /* RWD 響應式欄數設定 */
-      column-count: 4;          /* 電腦大螢幕：4 欄 */
-      column-gap: 20px;         /* 欄與欄的間距 */
+      /* CSS column-count 實現瀑布流高低錯落排列 */
+      column-count: 4;          /* 電腦螢幕：4 欄 */
+      column-gap: 20px;         /* 欄與欄間距 */
       max-width: 1200px;
       margin: 0 auto;
     }
 
-    /* 螢幕寬度調小時自動減少欄數 */
+    /* 響應式斷點 (RWD) */
     @media (max-width: 1024px) { .masonry-container { column-count: 3; } }
     @media (max-width: 768px)  { .masonry-container { column-count: 2; } }
     @media (max-width: 480px)  { .masonry-container { column-count: 1; } }
 
     /* ==========================================================================
-       【留言卡片基礎樣式與高亮特效】
+       【4. 留言卡片樣式與高亮/模糊特效】
        ========================================================================== */
     .card {
       background-color: var(--card-bg);
-      border-radius: 20px;
+      border-radius: 22px;
       padding: 20px;
-      margin-bottom: 20px;      /* 卡片上下間距 */
-      break-inside: avoid;      /* 防止瀑布流卡片被截斷拆成兩半 */
-      border: 2px solid #FFE4EC;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+      margin-bottom: 20px;
+      break-inside: avoid;      /* 防止卡片在排版時被拆半截斷 */
+      border: 2px solid var(--secondary-color);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
       position: relative;
-      transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* 轉場平滑效果 */
-      cursor: pointer;
+      transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
-    /* 貓咪小貼紙標籤 */
+    /* 右上角貓爪標籤 */
     .card::before {
       content: '🐾';
       position: absolute;
       top: -10px;
-      right: 15px;
-      font-size: 18px;
+      right: 16px;
+      font-size: 16px;
       background: var(--bg-color);
-      padding: 2px 6px;
-      border-radius: 10px;
-      border: 1px solid var(--secondary-color);
+      padding: 2px 8px;
+      border-radius: 12px;
+      border: 1px solid var(--primary-color);
     }
 
-    /* 卡片頭像與名字 */
     .card-header {
       display: flex;
       align-items: center;
       gap: 10px;
       margin-bottom: 12px;
-      border-bottom: 1px dashed #FFD1DC;
+      border-bottom: 1.5px dashed #FFD6E0;
       padding-bottom: 8px;
     }
 
     .avatar {
-      width: 36px;
-      height: 36px;
-      background-color: var(--secondary-color);
-      color: white;
+      width: 40px;
+      height: 40px;
+      background-color: var(--primary-color);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
-      font-size: 1.1rem;
+      font-size: 1.3rem;
+      flex-shrink: 0;
     }
 
     .card-name {
-      font-weight: 700;
+      font-weight: bold;
       color: var(--accent-color);
-      font-size: 1.05rem;
+      font-size: 1.2rem;
     }
 
-    /* 留言時間 */
     .card-time {
-      font-size: 0.75rem;
+      font-size: 0.85rem;
       color: var(--text-muted);
-      margin-top: 2px;
     }
 
-    /* 留言內容 */
     .card-content {
-      font-size: 0.95rem;
+      font-size: 1.15rem;
       line-height: 1.6;
       color: var(--text-dark);
-      white-space: pre-wrap;     /* 保留換行符號 */
-      word-break: break-word;    /* 長字串自動折行 */
+      white-space: pre-wrap;     /* 保留原本留言換行 */
+      word-break: break-word;    /* 長單字自動換行 */
     }
 
     /* --------------------------------------------------------------------------
-       【焦點輪播狀態效果 (Focus Status Controls)】
+       【輪播特效：高亮 (Highlight) vs 未選中 (Dimmed)】
        -------------------------------------------------------------------------- */
     
-    /* 1. 當前『被選中 (Highlighted)』的卡片發光與放大效果 */
+    /* 1. 被選中的卡片：放大、亮起粉紅粗框與外發光 */
     .card.highlight {
       transform: scale(var(--highlight-scale));
       border: 3px solid var(--accent-color);
-      box-shadow: 0 12px 30px var(--shadow-color), 0 0 15px rgba(255, 82, 154, 0.4);
-      z-index: 10;               /* 確保放大時排在最上層 */
+      box-shadow: 0 10px 25px var(--shadow-glow), 0 0 18px var(--shadow-glow);
+      z-index: 10;
       opacity: 1;
       filter: blur(0px);
     }
 
-    /* 2.『未被選中 (Dimmed)』的卡片暗化與模糊效果 */
+    /* 2. 未被選中的卡片：變暗、變模糊 */
     .card.dimmed {
-      opacity: 0.45;                             /* 調低透明度使卡片變暗 */
-      filter: blur(var(--blur-amount));          /* 模糊效果 */
-      transform: scale(0.96);                   /* 微微縮小增加對比 */
+      opacity: var(--dimmed-opacity);
+      filter: blur(var(--dimmed-blur));
+      transform: scale(0.96);
     }
   </style>
 </head>
 <body>
 
-  <!-- 頁頭 -->
+  <!-- 頁頭區塊 -->
   <header>
     <h1>朋友對我的動態留言板</h1>
-    <p>🐾 每一條留言，都是珍藏的溫暖時光 🐾</p>
+    <p>🐾 每一條悄悄話，都是珍藏的溫暖時光 🐾</p>
   </header>
 
-  <!-- 載入中酷炫動畫 (會在 JS 資料讀取完畢後隱藏) -->
+  <!-- 載入中動畫 (資料加載完成後會自動隱藏) -->
   <div id="loading">
     <div class="cat-spinner"></div>
     <p>讀取留言中...</p>
   </div>
 
-  <!-- 瀑布流留言牆容器 -->
+  <!-- 瀑布流卡片牆容器 -->
   <main id="board" class="masonry-container"></main>
 
   <script>
     /* ==========================================================================
-       【控制變數設定區】 - 方便你後續調整輪播參數
+       【5. JavaScript 邏輯控制與參數】
        ========================================================================== */
-    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSZ70ZsSOcXGQcBiPkY0pRgUG53MMlAxHJm-PrkhrRFVmf4lehXBNirT39zA45_MtJJqChB1uJkifuU/pub?output=csv';
+    // Google 試算表發佈的 CSV 網址
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS1tR-gfe6nBSVf7Y0MBFYXhLk5cCRlbKs9_X6HAYi_yEAqL-itz8FxqGkAT9mxyLRsNMOOzQRlhTKG/pub?output=csv';
     
-    // 【重點設定】卡片輪播切換的秒數 (單位：毫秒，3000ms = 3 秒)
+    // ⏱️ 【重點控制區】卡片輪播切換的時間間隔 (單位：毫秒，3000 代表 3 秒)
     const CAROUSEL_INTERVAL_MS = 3000; 
 
-    // 貓咪可愛大頭照圖案清單，會隨機發給留言者
-    const CAT_AVATARS = ['🐱', '😸', '😺', '😻', '😼', '😽', '🐾', '🐈'];
+    // 隨機指派給留言者的可愛貓咪 Emoji 頭像
+    const CAT_AVATARS = ['🐱', '😸', '😺', '😻', '😼', '😽', '🐾', '🐈', '🎀'];
 
     // 全域變數
-    let messageCards = [];     // 儲存 DOM 節點陣列
-    let currentIndex = -1;     // 當前高亮的卡片索引
+    let messageCards = [];     // 儲存 DOM 卡片元件
+    let currentIndex = -1;     // 目前高亮卡片的索引值
     let carouselTimer = null;  // 計時器物件
 
-    /* ==========================================================================
-       【主程式進入點 (Initialization)】
-       ========================================================================== */
+    /* 頁面載入後自動觸發 */
     document.addEventListener('DOMContentLoaded', () => {
       fetchMessages();
     });
 
     /**
-     * 從 Google 試算表 CSV 抓取資料
+     * 使用 fetch() 讀取 Google 試算表 CSV 資料
      */
     async function fetchMessages() {
       try {
         const response = await fetch(CSV_URL);
-        if (!response.ok) throw new Error('網路回應不成功');
+        if (!response.ok) throw new Error('連線失敗');
         
         const csvText = await response.text();
         const parsedData = parseCSV(csvText);
 
-        // 渲染卡片
+        // 渲染留言卡片
         renderBoard(parsedData);
 
-        // 隱藏 Loading 動畫
+        // 隱藏 Loading 酷炫動畫
         document.getElementById('loading').style.display = 'none';
 
-        // 開始進行焦點輪播
+        // 若成功抓取到資料，啟動 3 秒輪播特效
         if (messageCards.length > 0) {
           startCarousel();
         }
 
       } catch (error) {
-        console.error('抓取資料失敗：', error);
-        document.getElementById('loading').innerHTML = '<p style="color:red;">😿 留言讀取失敗，請稍後再試！</p>';
+        console.error('抓取 CSV 資料失敗：', error);
+        document.getElementById('loading').innerHTML = '<p style="color:red;">😿 留言讀取失敗，請確認網址或權限！</p>';
       }
     }
 
     /**
-     * CSV 解析器 (妥善處理留言欄位中含有「雙引號」或「逗號」的情況)
+     * CSV 解析函式 (可防範留言內容包含逗號或雙引號導致資料錯位)
      */
     function parseCSV(text) {
       const lines = text.trim().split('\n');
       const result = [];
 
-      // 從第 1 行開始解析（忽略第 0 行欄位標題）
+      // 從第 1 行開始讀取（自動跳過第 0 行標題列）
       for (let i = 1; i < lines.length; i++) {
         let line = lines[i].trim();
         if (!line) continue;
@@ -338,11 +335,11 @@
         let insideQuote = false;
         let entry = '';
 
-        for (let charIndex = 0; charIndex < line.length; charIndex++) {
-          let char = line[charIndex];
+        for (let j = 0; j < line.length; j++) {
+          let char = line[j];
 
           if (char === '"') {
-            insideQuote = !insideQuote; // 切換雙引號狀態
+            insideQuote = !insideQuote; // 遇到雙引號，切換包裹狀態
           } else if (char === ',' && !insideQuote) {
             row.push(entry.trim());
             entry = '';
@@ -352,11 +349,11 @@
         }
         row.push(entry.trim());
 
-        // 假設欄位順序為：[0] 時間戳記, [1] 名字, [2] 悄悄話/留言
+        // CSV 預設欄位順序：[0] 時間戳記, [1] 名字, [2] 悄悄話
         if (row.length >= 3) {
           result.push({
-            timestamp: row[0].replace(/^"|"$/g, ''), // 清除字串首尾雙引號
-            name: row[1].replace(/^"|"$/g, '') || '匿名貓友',
+            timestamp: row[0].replace(/^"|"$/g, ''),
+            name: row[1].replace(/^"|"$/g, '') || '神秘貓友',
             content: row[2].replace(/^"|"$/g, '')
           });
         }
@@ -365,17 +362,17 @@
     }
 
     /**
-     * 動態生成留言卡片並放置到瀑布流牆上
+     * 將解析好的陣列資料動態渲染至畫面上
      */
     function renderBoard(messages) {
       const board = document.getElementById('board');
       board.innerHTML = '';
 
       messages.forEach((msg) => {
-        // 隨機選擇一個貓咪大頭圖示
+        // 隨機抽一個貓咪大頭照
         const randomAvatar = CAT_AVATARS[Math.floor(Math.random() * CAT_AVATARS.length)];
 
-        // 建立卡片 HTML 結構
+        // 生成卡片元件
         const card = document.createElement('div');
         card.className = 'card';
         card.innerHTML = `
@@ -392,47 +389,39 @@
         board.appendChild(card);
       });
 
-      // 取得所有已生成的卡片元件陣列
+      // 取得所有產生的卡片元件
       messageCards = Array.from(document.querySelectorAll('.card'));
     }
 
     /* ==========================================================================
-       【輪播特效邏輯 (Highlight Carousel)】
+       【6. 輪播與焦點特效邏輯】
        ========================================================================== */
     
-    /**
-     * 啟動 3 秒輪播計時器
-     */
     function startCarousel() {
-      // 立即執行第一次高亮
+      // 立即高亮第 1 張卡片
       highlightNextCard();
 
-      // 設定每隔 CAROUSEL_INTERVAL_MS 毫秒執行一次
+      // 每隔 CAROUSEL_INTERVAL_MS (3000ms = 3 秒) 執行一次
       carouselTimer = setInterval(() => {
         highlightNextCard();
       }, CAROUSEL_INTERVAL_MS);
     }
 
-    /**
-     * 切換到下一張卡片並套用高亮 / 模糊特效
-     */
     function highlightNextCard() {
       if (messageCards.length === 0) return;
 
-      // 算下一張卡片的 index（若到盡頭則歸零重新開始）
+      // 計算下一個高亮卡片的 index（輪播到底時會自動歸零循環）
       currentIndex = (currentIndex + 1) % messageCards.length;
 
-      // 走訪所有卡片更新狀態
+      // 走訪所有卡片並更換 CSS Class
       messageCards.forEach((card, index) => {
         if (index === currentIndex) {
-          // 當前卡片：加上高亮 class，移除模糊 class
           card.classList.add('highlight');
           card.classList.remove('dimmed');
 
-          // 自動將視野平滑捲動至當前高亮的卡片（優化體驗）
+          // 自動平滑捲動，讓高亮卡片維持在視野內
           card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         } else {
-          // 其他卡片：加上模糊/暗化 class，移除高亮 class
           card.classList.remove('highlight');
           card.classList.add('dimmed');
         }
@@ -440,7 +429,7 @@
     }
 
     /**
-     * 工具函式：防範 XSS 攻擊，將特殊符號轉義
+     * 安全轉義字串，防止 XSS 攻擊
      */
     function escapeHTML(str) {
       if (!str) return '';
