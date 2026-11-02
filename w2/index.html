@@ -18,10 +18,10 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", sans-serif;
       min-height: 100vh;
-      /* 馬卡龍草莓奶昔柔和漸層 */
+      /* 馬卡龍柔和粉藍/粉紫漸層 */
       background: linear-gradient(135deg, #fff0f5 0%, #ffd6e0 50%, #e8f0fe 100%);
       
-      /* 畫面絕對置中 */
+      /* 全畫面置中 */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -138,7 +138,7 @@
       transform: translateY(0);
     }
 
-    /* 馬上出發按鈕：馬卡龍薄荷綠/淡藍 */
+    /* 馬上出發按鈕：馬卡龍天藍色 */
     .btn-map {
       background-color: #a2d2ff;
       color: #1d3557;
@@ -163,35 +163,35 @@
   <!-- 卡片主體 -->
   <main class="card">
     
-    <!-- 預設美食示意圖片 / 抽中後顯示對應照片 -->
+    <!-- 美食照片容器 -->
     <div class="image-box">
       <img id="food-image" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80" alt="美食照片">
     </div>
 
-    <!-- 大標題區塊 -->
+    <!-- 1. 大標題 -->
     <h1 id="title" class="title">今天吃什麼？</h1>
     
-    <!-- 抽籤按鈕 -->
+    <!-- 2. 抽籤大按鈕 -->
     <button id="draw-btn" class="btn btn-draw">點我抽籤 🎲</button>
 
-    <!-- 馬上出發 GOOGLE MAP 按鈕 (預設隱藏，抽中後顯示) -->
+    <!-- 3. 馬上出發 GOOGLE MAP 按鈕 (預設隱藏，抽中後顯示) -->
     <a id="map-btn" href="#" target="_blank" class="btn btn-map hidden">馬上出發 📍</a>
 
   </main>
 
   <script>
-    // 確保 DOM 完全載入後才執行邏輯
+    // 確保網頁元件完全載入後才執行邏輯
     document.addEventListener('DOMContentLoaded', () => {
       
-      // 美食選單資料庫 (包含名稱、圖片連結與 Google Map 搜尋網址)
+      // 美食選項資料（名稱、照片網址、Google Maps 搜尋連結）
       const foodList = [
         {
-          name: "瓦城泰國料理 🍛",
+          name: "瓦城 🍛",
           image: "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=600&q=80",
           mapUrl: "https://www.google.com/maps/search/瓦城"
         },
         {
-          name: "好正點港式飲茶 🥟",
+          name: "好正點 🥟",
           image: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80",
           mapUrl: "https://www.google.com/maps/search/好正點"
         },
@@ -201,44 +201,44 @@
           mapUrl: "https://www.google.com/maps/search/金色三麥"
         },
         {
-          name: "美味燒肉 🥩",
+          name: "燒肉 🥩",
           image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80",
           mapUrl: "https://www.google.com/maps/search/燒肉"
         },
         {
-          name: "暖心火鍋 🍲",
+          name: "火鍋 🍲",
           image: "https://images.unsplash.com/photo-1555126634-323283e090fa?auto=format&fit=crop&w=600&q=80",
           mapUrl: "https://www.google.com/maps/search/火鍋"
         }
       ];
 
-      // 取得 DOM 元素
+      // 取得 HTML 畫面上的元素
       const title = document.getElementById('title');
       const foodImage = document.getElementById('food-image');
       const drawBtn = document.getElementById('draw-btn');
       const mapBtn = document.getElementById('map-btn');
 
-      // 點擊抽籤按鈕事件
+      // 點擊按鈕觸發抽籤
       drawBtn.addEventListener('click', () => {
-        // 隨機選取一項美食
+        // 從選單中隨機抽取一項
         const randomIndex = Math.floor(Math.random() * foodList.length);
         const selectedFood = foodList[randomIndex];
 
-        // 移除舊的動畫，以便再次觸發
+        // 移除動畫類別以重置動畫
         title.classList.remove('bounce');
         mapBtn.classList.remove('bounce');
         
-        // 強制重繪（Reflow），使動畫能重新播放
+        // 觸發重繪 (Reflow)，讓動畫可以重複播放
         void title.offsetWidth;
 
-        // 更新標題內容並加入彈跳動畫
+        // 替換標題文字並加上生動彈跳動畫
         title.textContent = selectedFood.name;
         title.classList.add('bounce');
 
-        // 替換圖片
+        // 替換美食照片
         foodImage.src = selectedFood.image;
 
-        // 設定 Google Maps 連結並顯示「馬上出發」按鈕
+        // 設定地圖連結並顯示「馬上出發」按鈕
         mapBtn.href = selectedFood.mapUrl;
         mapBtn.classList.remove('hidden');
         mapBtn.classList.add('bounce');
