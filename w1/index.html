@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>個人名片 - 江雨綺</title>
+  <title>個人名片 | 77</title>
   
   <style>
     /* ==========================================
-       全域設定與背景 (全畫面置中)
+       1. 全域重置與畫面置中 (馬卡龍漸層背景)
        ========================================== */
     * {
       box-sizing: border-box;
@@ -18,10 +18,10 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", sans-serif;
       min-height: 100vh;
-      /* 柔和的 Hello Kitty 粉白漸層背景 */
-      background: linear-gradient(135deg, #fff0f5 0%, #ffe4e8 100%);
+      /* 柔和的馬卡龍粉藍/粉紫漸層 */
+      background: linear-gradient(135deg, #fff0f5 0%, #e8f0fe 100%);
       
-      /* 畫面絕對置中 */
+      /* 將卡片放在螢幕正中央 */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -29,104 +29,37 @@
     }
 
     /* ==========================================
-       Hello Kitty 卡片主體 (現代圓角 + 微陰影)
+       2. 名片主卡片 (現代感圓角 + 微陰影)
        ========================================== */
-    .kitty-card {
-      position: relative;
+    .profile-card {
       background-color: #ffffff;
       width: 100%;
-      max-width: 340px;
-      padding: 45px 28px 35px;
-      border-radius: 32px;
+      max-width: 330px;
+      padding: 40px 28px 32px;
+      border-radius: 28px;
       text-align: center;
       
-      /* 現代感層次微陰影 */
+      /* 馬卡龍柔和微陰影 */
       box-shadow: 
-        0 15px 35px rgba(255, 182, 193, 0.3),
-        0 5px 15px rgba(0, 0, 0, 0.03);
+        0 12px 30px rgba(235, 180, 200, 0.25),
+        0 4px 12px rgba(180, 200, 230, 0.15);
         
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    /* 懸浮時卡片輕微浮起 */
-    .kitty-card:hover {
-      transform: translateY(-8px);
+    /* 當滑鼠懸停時卡片微微浮起 */
+    .profile-card:hover {
+      transform: translateY(-6px);
       box-shadow: 
-        0 20px 40px rgba(255, 182, 193, 0.45),
-        0 8px 20px rgba(0, 0, 0, 0.05);
+        0 18px 36px rgba(235, 180, 200, 0.35),
+        0 6px 16px rgba(180, 200, 230, 0.2);
     }
 
     /* ==========================================
-       Kitty 貓耳朵裝飾
-       ========================================== */
-    .ear {
-      position: absolute;
-      top: -16px;
-      width: 50px;
-      height: 50px;
-      background-color: #ffffff;
-      border-radius: 12px;
-      z-index: 0;
-    }
-
-    .ear-left {
-      left: 35px;
-      transform: rotate(-15deg);
-      box-shadow: -3px -3px 8px rgba(255, 182, 193, 0.15);
-    }
-
-    .ear-right {
-      right: 35px;
-      transform: rotate(15deg);
-      box-shadow: 3px -3px 8px rgba(255, 182, 193, 0.15);
-    }
-
-    /* ==========================================
-       Kitty 經典蝴蝶結
-       ========================================== */
-    .bow {
-      position: absolute;
-      top: -12px;
-      right: 40px;
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .bow-center {
-      width: 16px;
-      height: 16px;
-      background-color: #ff4d6d;
-      border-radius: 50%;
-      z-index: 2;
-      box-shadow: 0 2px 6px rgba(255, 77, 109, 0.4);
-    }
-
-    .bow-left, .bow-right {
-      width: 22px;
-      height: 18px;
-      background-color: #ff4d6d;
-      border-radius: 8px;
-    }
-
-    .bow-left {
-      margin-right: -4px;
-      transform: rotate(-10deg);
-    }
-
-    .bow-right {
-      margin-left: -4px;
-      transform: rotate(10deg);
-    }
-
-    /* ==========================================
-       1. 圓形大頭貼
+       3. 圓形大頭貼
        ========================================== */
     .avatar-container {
-      position: relative;
-      z-index: 1;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
       display: inline-block;
     }
 
@@ -135,17 +68,17 @@
       height: 110px;
       border-radius: 50%; /* 完美圓形 */
       object-fit: cover;
-      /* 粉紅柔光外框 */
-      border: 4px solid #fff0f3;
-      box-shadow: 0 6px 18px rgba(255, 154, 162, 0.35);
+      /* 奶黃/淡粉色邊框與柔影 */
+      border: 4px solid #fff5db;
+      box-shadow: 0 6px 16px rgba(255, 210, 180, 0.35);
     }
 
     /* ==========================================
-       2. 名字與自我介紹
+       4. 名字與自我介紹
        ========================================== */
     .name {
       font-size: 1.5rem;
-      color: #4a3e3d; /* 深可可粉色，柔和高雅 */
+      color: #4a4254; /* 質感紫灰色 */
       font-weight: 700;
       margin-bottom: 8px;
       letter-spacing: 1px;
@@ -153,16 +86,16 @@
 
     .bio {
       font-size: 0.9rem;
-      color: #8c7a7a;
+      color: #7d7385;
       line-height: 1.5;
       margin-bottom: 28px;
-      white-space: nowrap; /* 保持單行簡短自我介紹 */
+      white-space: nowrap; /* 保持單行簡短介紹 */
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
     /* ==========================================
-       3. 按鈕區塊 (Instagram & Email)
+       5. 按鈕區塊 (Instagram & Email)
        ========================================== */
     .button-group {
       display: flex;
@@ -172,79 +105,29 @@
     .btn {
       flex: 1;
       padding: 12px 0;
-      border-radius: 50px; /* 膠囊狀圓角 */
+      border-radius: 50px; /* 現代感膠囊狀圓角 */
       text-decoration: none;
       font-size: 0.9rem;
       font-weight: 600;
       transition: all 0.25s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: inline-block;
     }
 
-    /* Instagram 按鈕：Kitty 草莓粉色 */
+    /* Instagram 按鈕：蜜桃粉色 */
     .btn-ig {
-      background-color: #ff85a1;
-      color: #ffffff;
-      box-shadow: 0 4px 14px rgba(255, 133, 161, 0.4);
+      background-color: #ffc2d1;
+      color: #5c2838;
+      box-shadow: 0 4px 12px rgba(255, 194, 209, 0.5);
     }
 
     .btn-ig:hover {
-      background-color: #ff6b8b;
+      background-color: #ffb3c6;
       transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(255, 133, 161, 0.6);
+      box-shadow: 0 6px 16px rgba(255, 194, 209, 0.7);
     }
 
-    /* Email 按鈕：粉藍馬卡龍色 */
+    /* Email 按鈕：馬卡龍淡藍色 */
     .btn-email {
       background-color: #b8e2f2;
-      color: #3d5a80;
-      box-shadow: 0 4px 14px rgba(184, 226, 242, 0.5);
-    }
-
-    .btn-email:hover {
-      background-color: #a0d8ef;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(184, 226, 242, 0.7);
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Hello Kitty 主體名片卡片 -->
-  <div class="kitty-card">
-    
-    <!-- 貓耳朵造型 -->
-    <div class="ear ear-left"></div>
-    <div class="ear ear-right"></div>
-    
-    <!-- 經典紅/粉蝴蝶結裝飾 -->
-    <div class="bow">
-      <div class="bow-center"></div>
-      <div class="bow-left"></div>
-      <div class="bow-right"></div>
-    </div>
-
-    <!-- 1. 圓形大頭貼 -->
-    <div class="avatar-container">
-      <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300" alt="江雨綺的大頭貼" class="avatar">
-    </div>
-
-    <!-- 2. 名字與一行簡短自我介紹 -->
-    <h1 class="name">江雨綺</h1>
-    <p class="bio">熱愛視覺與生活美學，用溫暖的色彩記錄靈感每一刻 🎀</p>
-
-    <!-- 3. Instagram 與 Email 按鈕區塊 -->
-    <div class="button-group">
-      <a href="https://instagram.com" target="_blank" class="btn btn-ig">
-        <span>Instagram</span>
-      </a>
-      <a href="mailto:your-email@example.com" class="btn btn-email">
-        <span>Email</span>
-      </a>
-    </div>
-
-  </div>
-
-</body>
-</html>
+      color: #204759;
+      box-shadow:
