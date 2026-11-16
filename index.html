@@ -23,8 +23,6 @@
       --text-dark: #831843;
       --card-bg: rgba(255, 255, 255, 0.85);
       --card-border: rgba(251, 207, 232, 0.85);
-      --locked-bg: rgba(243, 244, 246, 0.75);
-      --locked-border: #e5e7eb;
     }
 
     body {
@@ -127,52 +125,6 @@
       box-shadow: 0 16px 32px rgba(244, 114, 182, 0.28),
                   0 0 15px rgba(236, 72, 153, 0.15);
     }
-
-    /* 鎖定關卡樣式 */
-    .level-locked {
-      background: var(--locked-bg);
-      border: 2px dashed var(--locked-border);
-      backdrop-filter: blur(6px);
-      transition: all 0.25s ease;
-      cursor: pointer;
-    }
-
-    .level-locked:hover {
-      background: rgba(243, 244, 246, 0.95);
-      border-color: var(--pink-soft);
-      transform: translateY(-3px);
-    }
-
-    .level-locked:hover .lock-icon {
-      transform: scale(1.25) rotate(-12deg);
-      transition: transform 0.25s ease;
-    }
-
-    @keyframes shakeAnimation {
-      0%, 100% { transform: translateX(0); }
-      20%, 60% { transform: translateX(-7px) rotate(-3deg); }
-      40%, 80% { transform: translateX(7px) rotate(3deg); }
-    }
-
-    .shake {
-      animation: shakeAnimation 0.4s ease-in-out;
-      border-color: #f43f5e !important;
-    }
-
-    #toast-msg {
-      position: fixed;
-      bottom: 28px;
-      left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      opacity: 0;
-      transition: all 0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      z-index: 50;
-    }
-
-    #toast-msg.active {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
-    }
   </style>
 </head>
 <body class="flex flex-col min-h-screen items-center justify-between p-4 md:p-8">
@@ -201,126 +153,22 @@
           <span>Web Developer Portfolio</span>
         </div>
         <h1 class="text-2xl md:text-3xl font-bold tracking-wide text-pink-950">我的作品集 / My Portfolio</h1>
-        <p class="text-xs md:text-sm text-pink-800/80 font-medium">歡迎來到貓咪主題的網頁程式設計闖關地圖 🌸</p>
+        <p class="text-xs md:text-sm text-pink-800/80 font-medium">恭喜全關卡解鎖！盡情探索貓咪主題作品集吧 🎉</p>
       </div>
 
-      <!-- 解鎖進度條 (更新為 5 / 16 = 31.25%) -->
+      <!-- 解鎖進度條 (全解鎖 16 / 16 = 100%) -->
       <div class="w-full bg-pink-100/80 rounded-full h-3.5 p-0.5 border border-pink-200/80 mt-1">
-        <div class="bg-gradient-to-r from-pink-400 to-pink-500 h-full rounded-full w-[31.25%] transition-all duration-500 shadow-sm"></div>
+        <div class="bg-gradient-to-r from-pink-400 to-pink-500 h-full rounded-full w-full transition-all duration-500 shadow-sm"></div>
       </div>
       <div class="text-xs text-pink-700 font-semibold flex justify-between w-full px-1">
-        <span>關卡進度：5 / 16 解鎖</span>
-        <span>31.25%</span>
+        <span>關卡進度：16 / 16 全數解鎖 ✨</span>
+        <span>100%</span>
       </div>
     </header>
 
-    <!-- 2. 16 個闖關按鈕網格 (電腦 4 欄、平板 3 欄、手機 2 欄) -->
+    <!-- 2. 16 個已解鎖闖關按鈕網格 -->
     <section class="w-full">
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 md:gap-5 w-full">
-
-        <!-- 按鈕 1 (已解鎖) -->
-        <a href="w1/index.html" class="level-unlocked p-4 md:p-5 rounded-2xl flex flex-col justify-between h-32 md:h-36 text-left group">
-          <div class="flex justify-between items-start">
-            <span class="text-xs font-bold uppercase tracking-wider text-pink-600 bg-pink-100 px-2.5 py-0.5 rounded-md">Week 01</span>
-            <span class="text-xl group-hover:scale-125 transition-transform">📇</span>
-          </div>
-          <div>
-            <h3 class="font-bold text-sm md:text-base text-pink-950 line-clamp-2">Week 1 - 數位名片</h3>
-            <p class="text-xs text-pink-500 mt-1 flex items-center gap-1 font-medium">
-              <span>進入關卡</span>
-              <span class="group-hover:translate-x-1 transition-transform">→</span>
-            </p>
-          </div>
-        </a>
-
-        <!-- 按鈕 2 (已解鎖) -->
-        <a href="w2/index.html" class="level-unlocked p-4 md:p-5 rounded-2xl flex flex-col justify-between h-32 md:h-36 text-left group">
-          <div class="flex justify-between items-start">
-            <span class="text-xs font-bold uppercase tracking-wider text-pink-600 bg-pink-100 px-2.5 py-0.5 rounded-md">Week 02</span>
-            <span class="text-xl group-hover:scale-125 transition-transform">🍱</span>
-          </div>
-          <div>
-            <h3 class="font-bold text-sm md:text-base text-pink-950 line-clamp-2">Week 2 - 今天吃甚麼?</h3>
-            <p class="text-xs text-pink-500 mt-1 flex items-center gap-1 font-medium">
-              <span>進入關卡</span>
-              <span class="group-hover:translate-x-1 transition-transform">→</span>
-            </p>
-          </div>
-        </a>
-
-        <!-- 按鈕 3 (已解鎖) -->
-        <a href="w3/index.html" class="level-unlocked p-4 md:p-5 rounded-2xl flex flex-col justify-between h-32 md:h-36 text-left group">
-          <div class="flex justify-between items-start">
-            <span class="text-xs font-bold uppercase tracking-wider text-pink-600 bg-pink-100 px-2.5 py-0.5 rounded-md">Week 03</span>
-            <span class="text-xl group-hover:scale-125 transition-transform">🤣</span>
-          </div>
-          <div>
-            <h3 class="font-bold text-sm md:text-base text-pink-950 line-clamp-2">Week 3 - 迷因產生器</h3>
-            <p class="text-xs text-pink-500 mt-1 flex items-center gap-1 font-medium">
-              <span>進入關卡</span>
-              <span class="group-hover:translate-x-1 transition-transform">→</span>
-            </p>
-          </div>
-        </a>
-
-        <!-- 按鈕 4 (已解鎖) -->
-        <a href="w4/index.html" class="level-unlocked p-4 md:p-5 rounded-2xl flex flex-col justify-between h-32 md:h-36 text-left group">
-          <div class="flex justify-between items-start">
-            <span class="text-xs font-bold uppercase tracking-wider text-pink-600 bg-pink-100 px-2.5 py-0.5 rounded-md">Week 04</span>
-            <span class="text-xl group-hover:scale-125 transition-transform">💌</span>
-          </div>
-          <div>
-            <h3 class="font-bold text-sm md:text-base text-pink-950 line-clamp-2">Week 4 - 悄悄話</h3>
-            <p class="text-xs text-pink-500 mt-1 flex items-center gap-1 font-medium">
-              <span>進入關卡</span>
-              <span class="group-hover:translate-x-1 transition-transform">→</span>
-            </p>
-          </div>
-        </a>
-
-        <!-- 按鈕 5 (已解鎖) -->
-        <a href="w5/index.html" class="level-unlocked p-4 md:p-5 rounded-2xl flex flex-col justify-between h-32 md:h-36 text-left group">
-          <div class="flex justify-between items-start">
-            <span class="text-xs font-bold uppercase tracking-wider text-pink-600 bg-pink-100 px-2.5 py-0.5 rounded-md">Week 05</span>
-            <span class="text-xl group-hover:scale-125 transition-transform">🎯</span>
-          </div>
-          <div>
-            <h3 class="font-bold text-sm md:text-base text-pink-950 line-clamp-2">Week 5 - 默契大考驗</h3>
-            <p class="text-xs text-pink-500 mt-1 flex items-center gap-1 font-medium">
-              <span>進入關卡</span>
-              <span class="group-hover:translate-x-1 transition-transform">→</span>
-            </p>
-          </div>
-        </a>
-
-        <!-- 按鈕 6 ~ 16 (未解鎖) -->
-        <script>
-          const lockedTopics = [
-            "互動小遊戲", "API 數據串接", "天氣 App", "待辦事項清單",
-            "音樂播放器", "電商購物車", "Canvas 畫板", "3D 視覺體驗",
-            "個人部落格", "團隊專題展示", "期末總結作品"
-          ];
-
-          for (let i = 6; i <= 16; i++) {
-            const topic = lockedTopics[i - 6] || `未解鎖任務 ${i}`;
-            document.write(`
-              <div onclick="handleLockedClick(this, ${i})" 
-                   class="level-locked p-4 md:p-5 rounded-2xl flex flex-col justify-between h-32 md:h-36 text-left select-none">
-                <div class="flex justify-between items-start">
-                  <span class="text-xs font-bold uppercase tracking-wider text-gray-400 bg-gray-200/70 px-2.5 py-0.5 rounded-md">Week ${i < 10 ? '0' + i : i}</span>
-                  <span class="lock-icon text-lg opacity-70">🔒</span>
-                </div>
-                <div>
-                  <h3 class="font-medium text-sm md:text-base text-gray-400 line-clamp-1">${topic}</h3>
-                  <p class="text-xs text-gray-400 mt-1 font-medium">
-                    <span>關卡鎖定中</span>
-                  </p>
-                </div>
-              </div>
-            `);
-          }
-        </script>
-
+      <div id="levels-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 md:gap-5 w-full">
       </div>
     </section>
 
@@ -330,14 +178,51 @@
     </footer>
   </main>
 
-  <!-- Toast 未解鎖提示 -->
-  <div id="toast-msg" class="bg-pink-950 text-white text-xs md:text-sm px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-2.5 border border-pink-700">
-    <span class="text-lg">🔒</span>
-    <span id="toast-text">Week 關卡尚未解鎖！完成先前任務後即可探索喔～</span>
-  </div>
-
   <script>
-    // 1. 生成飄浮粉紅愛心、星芒與貓爪
+    // 1. 完整 16 週關卡資料
+    const levelsData = [
+      { week: 1,  title: "數位名片",     icon: "📇" },
+      { week: 2,  title: "今天吃甚麼?",  icon: "🍱" },
+      { week: 3,  title: "迷因產生器",   icon: "🤣" },
+      { week: 4,  title: "悄悄話",       icon: "💌" },
+      { week: 5,  title: "默契大考驗",   icon: "🎯" },
+      { week: 6,  title: "互動小遊戲",   icon: "🎮" },
+      { week: 7,  title: "API 數據串接", icon: "🔌" },
+      { week: 8,  title: "天氣 App",     icon: "🌤️" },
+      { week: 9,  title: "待辦事項清單", icon: "✅" },
+      { week: 10, title: "音樂播放器",   icon: "🎧" },
+      { week: 11, title: "電商購物車",   icon: "🛒" },
+      { week: 12, title: "Canvas 畫板",  icon: "🎨" },
+      { week: 13, title: "3D 視覺體驗",  icon: "🧊" },
+      { week: 14, title: "個人部落格",   icon: "✍️" },
+      { week: 15, title: "團隊專題展示", icon: "🤝" },
+      { week: 16, title: "期末總結作品", icon: "🏆" }
+    ];
+
+    // 2. 渲染所有已解鎖關卡卡片
+    function renderLevels() {
+      const grid = document.getElementById('levels-grid');
+      grid.innerHTML = levelsData.map(item => {
+        const weekLabel = item.week < 10 ? `0${item.week}` : item.week;
+        return `
+          <a href="w${item.week}/index.html" class="level-unlocked p-4 md:p-5 rounded-2xl flex flex-col justify-between h-32 md:h-36 text-left group">
+            <div class="flex justify-between items-start">
+              <span class="text-xs font-bold uppercase tracking-wider text-pink-600 bg-pink-100 px-2.5 py-0.5 rounded-md">Week ${weekLabel}</span>
+              <span class="text-xl group-hover:scale-125 transition-transform">${item.icon}</span>
+            </div>
+            <div>
+              <h3 class="font-bold text-sm md:text-base text-pink-950 line-clamp-2">Week ${item.week} - ${item.title}</h3>
+              <p class="text-xs text-pink-500 mt-1 flex items-center gap-1 font-medium">
+                <span>進入關卡</span>
+                <span class="group-hover:translate-x-1 transition-transform">→</span>
+              </p>
+            </div>
+          </a>
+        `;
+      }).join('');
+    }
+
+    // 3. 生成飄浮粉紅愛心、星芒與貓爪
     function initParticles() {
       const container = document.getElementById('particles-container');
       const symbols = ['🌸', '💖', '✨', '⭐', '🐾', '💕', '🍬'];
@@ -355,28 +240,8 @@
       }
     }
 
-    // 2. 處理點擊未解鎖關卡時的動畫與提示訊息
-    let toastTimer;
-    function handleLockedClick(element, weekNumber) {
-      // 觸發 Shake 抖動
-      element.classList.remove('shake');
-      void element.offsetWidth; // 強制重繪以重置動畫
-      element.classList.add('shake');
-
-      // 顯示 Toast 彈窗
-      const toast = document.getElementById('toast-msg');
-      const toastText = document.getElementById('toast-text');
-      toastText.innerText = `Week ${weekNumber} 關卡尚未解鎖！先完成前面的關卡吧 ✨`;
-      toast.classList.add('active');
-
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => {
-        toast.classList.remove('active');
-      }, 2500);
-    }
-
-    // 頁面載入完成後初始化
     window.onload = function() {
+      renderLevels();
       initParticles();
     };
   </script>
